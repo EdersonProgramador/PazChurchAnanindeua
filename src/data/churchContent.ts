@@ -2,6 +2,8 @@ export const CHURCH = {
   name: 'Paz Church Ananindeua',
   /** Fachada da sede — cards da home e galeria */
   facadeImage: '/image-c1835de4-9a9c-4137-9226-f3e3698f33a9.jpg',
+  facadeImageRemote:
+    'https://paz-church-ananindeua.onrender.com/image-c1835de4-9a9c-4137-9226-f3e3698f33a9.jpg',
   tagline: 'Da Amazônia para o mundo',
   locale: 'Paz Church Metrópole - Ananindeua',
   address: 'Rodovia BR-316 KM 5, S/N',

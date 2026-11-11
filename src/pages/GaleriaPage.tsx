@@ -15,10 +15,6 @@ export function GaleriaPage() {
         crumbs={[{ label: 'Home', to: '/' }, { label: 'Galeria' }]}
       />
       <SiteSection>
-        <p className="mx-auto mb-8 max-w-2xl text-center text-sm text-paz-muted">
-          Inspirado na galeria da rede Paz Church Belém. Novas fotos dos cultos e eventos podem ser adicionadas pela
-          gestão de mídia.
-        </p>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {GALLERY_ITEMS.map((item) => (
             <button

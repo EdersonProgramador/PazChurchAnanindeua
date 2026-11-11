@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Calendar, ChevronRight, Mic2, Users } from 'lucide-react'
+import { HomeFeedSection } from '../components/site/HomeFeedSection'
 import { HomeHeroVideo } from '../components/site/HomeHeroVideo'
 import { SiteSection } from '../components/site/SiteSection'
 import { CHURCH } from '../data/churchContent'
@@ -61,36 +62,9 @@ export function HomePage() {
         </div>
       </SiteSection>
 
-      {banners.length > 0 && (
-        <SiteSection className="bg-slate-50">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <Link
-              to="/paz-church/localizacao"
-              className="paz-screen-enter group overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-slate-200/80 md:col-span-2 lg:col-span-3"
-            >
-              <img
-                src={CHURCH.facadeImage}
-                alt="Fachada Paz Church Ananindeua"
-                className="h-44 w-full object-cover object-center transition group-hover:scale-[1.01] sm:h-52 md:h-56"
-              />
-            </Link>
-            {banners.map((post) => (
-              <article key={post.id} className="paz-screen-enter group overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-slate-200/80">
-                <img
-                  src={post.imageUrl ?? CHURCH.facadeImage}
-                  alt=""
-                  className="h-40 w-full object-cover object-center transition group-hover:scale-[1.02]"
-                />
-                <div className="p-5">
-                  <p className="text-xs font-bold uppercase tracking-wide text-paz-accent">{post.series}</p>
-                  <h2 className="mt-1 text-lg font-bold text-paz-navy">{post.title}</h2>
-                  {post.subtitle && <p className="mt-1 text-sm text-paz-muted">{post.subtitle}</p>}
-                </div>
-              </article>
-            ))}
-          </div>
-        </SiteSection>
-      )}
+      <SiteSection className="bg-slate-50">
+        <HomeFeedSection posts={banners} />
+      </SiteSection>
 
       <SiteSection className="border-t border-slate-200 bg-white">
         <div className="mx-auto max-w-3xl text-center">
