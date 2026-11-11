@@ -51,6 +51,7 @@ export const api = {
   adminDelete: (entity: AdminEntity, id: string) =>
     request<void>(`/admin/${entity}/${id}`, { method: 'DELETE' }),
   homeSummary: () => request<HomeSummary>('/home/summary'),
+  sermonsPublic: () => request<{ sermons: Sermon[] }>('/sermons'),
   lifeGroupsPublic: () => request<{ groups: LifeGroup[] }>('/life-groups/public'),
   lifeGroupSignup: (body: LifeGroupSignupInput) =>
     request<{ message: string }>('/life-groups/signup', { method: 'POST', body: JSON.stringify(body) }),
@@ -140,6 +141,7 @@ export type ChurchEvent = {
   startsAt: string
   location: string
   recurring?: string | null
+  isPast?: boolean
 }
 
 export type MenuLink = {

@@ -1,59 +1,56 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ListRow } from '../components/ListRow'
-import { ScreenHeader } from '../components/ScreenHeader'
-import { api, type LifeGroup, type MenuLink } from '../integrations/apiClient'
-import { iconForMenu } from '../utils/menuIcons'
+import { PageTitle } from '../components/site/PageTitle'
+import { SiteSection } from '../components/site/SiteSection'
+import { api, type LifeGroup } from '../integrations/apiClient'
 
 export function LifeGroupsPage() {
-  const [links, setLinks] = useState<MenuLink[]>([])
   const [groups, setGroups] = useState<LifeGroup[]>([])
 
   useEffect(() => {
-    api.menu('life-groups').then((r) => setLinks(r.links)).catch(console.error)
     api.lifeGroupsPublic().then((r) => setGroups(r.groups)).catch(console.error)
   }, [])
 
   return (
     <>
-      <ScreenHeader title="Life Groups" />
-      <img
-        src="/image-2b9723df-aaeb-45e1-a0c0-433ae9995a66.png"
-        alt=""
-        className="paz-screen-enter h-36 w-full object-cover"
-        onError={(e) => {
-          e.currentTarget.style.display = 'none'
-        }}
+      <PageTitle
+        title="Life Groups"
+        subtitle="A igreja no lar — comunhão, Palavra e oração para todas as idades."
+        crumbs={[{ label: 'Home', to: '/' }, { label: 'Life Groups' }]}
       />
-      <Link
-        to="/life-groups/inscricao"
-        className="paz-screen-enter m-3 block rounded-lg bg-paz-accent px-4 py-3 text-center text-sm font-semibold text-white"
-      >
-        Quero participar de um Life Group
-      </Link>
-      <nav>
-        {links.map((link) => (
-          <ListRow
-            key={link.id}
-            label={link.label}
-            to={link.path ?? undefined}
-            icon={iconForMenu(link.icon)}
-          />
-        ))}
-      </nav>
-      {groups.length > 0 && (
-        <section className="mx-3 mb-4 rounded-lg border bg-white p-3">
-          <h3 className="text-sm font-bold text-paz-navy">Endereços ativos</h3>
-          <ul className="mt-2 space-y-2 text-xs text-paz-muted">
+      <SiteSection wide>
+        <img
+          src="/image-bd41641a-23fd-4733-b099-8d9de240aa9b.png"
+          alt=""
+          className="mx-auto max-h-48 w-full max-w-4xl rounded-xl object-cover"
+          onError={(e) => {
+            e.currentTarget.style.display = 'none'
+          }}
+        />
+      </SiteSection>
+      <SiteSection>
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="text-paz-muted">
+            Temos Life Groups para adultos, jovens, adolescentes e crianças na região de Ananindeua e entorno.
+          </p>
+          <Link to="/life-groups/inscricao" className="btn-primary mt-6 inline-block px-8 py-3">
+            Quero participar
+          </Link>
+        </div>
+        {groups.length > 0 && (
+          <ul className="mx-auto mt-12 grid max-w-4xl gap-4 md:grid-cols-2">
             {groups.map((g) => (
-              <li key={g.id}>
-                <span className="font-semibold text-paz-navy">{g.name}</span> — {g.neighborhood},{' '}
-                {g.dayOfWeek} {g.meetingTime}
+              <li key={g.id} className="rounded-xl border bg-white p-5 shadow-sm">
+                <p className="font-bold text-paz-navy">{g.name}</p>
+                <p className="mt-1 text-sm text-paz-muted">
+                  {g.neighborhood} · {g.dayOfWeek} às {g.meetingTime}
+                </p>
+                <p className="text-xs text-paz-muted">Líder: {g.leaderName}</p>
               </li>
             ))}
           </ul>
-        </section>
-      )}
+        )}
+      </SiteSection>
     </>
   )
 }

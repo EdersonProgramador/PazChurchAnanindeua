@@ -1,5 +1,6 @@
 import { FormEvent, useEffect, useState } from 'react'
-import { ScreenHeader } from '../components/ScreenHeader'
+import { PageTitle } from '../components/site/PageTitle'
+import { SiteSection } from '../components/site/SiteSection'
 import { api, type Ministry } from '../integrations/apiClient'
 
 export function VolunteerSignupPage() {
@@ -37,10 +38,13 @@ export function VolunteerSignupPage() {
 
   return (
     <>
-      <ScreenHeader title="Voluntários" />
-      <div className="space-y-4 bg-white p-4">
-        <motionCopy />
-        <form onSubmit={onSubmit} className="space-y-3">
+      <PageTitle
+        title="Seja um voluntário"
+        subtitle="Atmosfera, Paz Kids, Amor em Ação, Mídia, Recepção e mais."
+        crumbs={[{ label: 'Home', to: '/' }, { label: 'Voluntários' }]}
+      />
+      <SiteSection>
+        <form onSubmit={onSubmit} className="mx-auto max-w-lg space-y-3">
           <input name="fullName" required placeholder="Nome completo" className="field" />
           <input name="email" type="email" required placeholder="Email" className="field" />
           <input name="phone" required placeholder="WhatsApp" className="field" />
@@ -55,27 +59,11 @@ export function VolunteerSignupPage() {
           <textarea name="message" placeholder="Por que quer servir?" className="field min-h-24" />
           {ok && <p className="text-sm text-emerald-700">{ok}</p>}
           {error && <p className="text-sm text-red-600">{error}</p>}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full rounded-lg bg-paz-navy py-3 font-semibold text-white disabled:opacity-60"
-          >
+          <button type="submit" disabled={loading} className="btn-primary w-full py-3">
             {loading ? 'Enviando…' : 'Quero servir'}
           </button>
         </form>
-      </div>
+      </SiteSection>
     </>
   )
 }
-
-function motionCopy() {
-  return (
-    <div className="paz-screen-enter text-sm leading-relaxed text-paz-navy">
-      <h2 className="text-lg font-bold">Seja um voluntário</h2>
-      <p className="mt-2 text-paz-muted">
-        Servir faz parte da cultura Paz Church — Atmosfera, Paz Kids, Amor em Ação, Recepção, Mídia e mais.
-      </p>
-    </div>
-  )
-}
-

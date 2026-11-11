@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { ChevronRight } from 'lucide-react'
-import { ScreenHeader } from '../components/ScreenHeader'
+import { PageTitle } from '../components/site/PageTitle'
+import { SiteSection } from '../components/site/SiteSection'
 import { api, type ChurchEvent } from '../integrations/apiClient'
 
 export function SchedulePage() {
@@ -13,40 +13,41 @@ export function SchedulePage() {
 
   return (
     <>
-      <ScreenHeader title="Agenda" />
-      <div className="flex gap-2 bg-white px-3 py-2">
-        {(['upcoming', 'past'] as const).map((key) => (
-          <button
-            key={key}
-            type="button"
-            onClick={() => setTab(key)}
-            className={`flex-1 rounded-md py-2 text-sm font-semibold ${
-              tab === key ? 'bg-paz-navy text-white' : 'bg-slate-100 text-paz-muted'
-            }`}
-          >
-            {key === 'upcoming' ? 'Upcoming' : 'Past'}
-          </button>
-        ))}
-      </div>
-      <ul className="divide-y divide-slate-100 bg-white">
-        {events.map((ev) => {
-          const d = new Date(ev.startsAt)
-          const month = d.toLocaleString('pt-BR', { month: 'short' }).replace('.', '')
-          return (
-            <li key={ev.id} className="paz-screen-enter flex items-center gap-3 px-4 py-3">
-              <div className="w-12 text-center">
-                <div className="text-xs uppercase text-paz-muted">{month}</div>
-                <div className="text-2xl font-bold text-paz-navy">{d.getDate()}</div>
-              </div>
-              <div className="flex-1">
-                <p className="font-semibold text-paz-navy">{ev.title}</p>
-                {ev.recurring && <p className="text-xs text-paz-muted">{ev.recurring}</p>}
-              </div>
-              <ChevronRight className="h-5 w-5 text-paz-muted" />
-            </li>
-          )
-        })}
-      </ul>
+      <PageTitle title="Agenda" subtitle="Cultos, conferências e eventos da unidade Ananindeua." crumbs={[{ label: 'Home', to: '/' }, { label: 'Agenda' }]} />
+      <SiteSection>
+        <span className="mb-6 inline-flex rounded-lg border border-slate-200 bg-white p-1">
+          {(['upcoming', 'past'] as const).map((key) => (
+            <button
+              key={key}
+              type="button"
+              onClick={() => setTab(key)}
+              className={`rounded-md px-4 py-2 text-sm font-semibold ${
+                tab === key ? 'bg-paz-navy text-white' : 'text-paz-muted'
+              }`}
+            >
+              {key === 'upcoming' ? 'Próximos' : 'Anteriores'}
+            </button>
+          ))}
+        </span>
+        <ul className="divide-y rounded-xl border border-slate-100 bg-white shadow-sm">
+          {events.map((ev) => {
+            const d = new Date(ev.startsAt)
+            return (
+              <li key={ev.id} className="flex gap-4 p-4 md:p-6">
+                <div className="w-16 shrink-0 text-center">
+                  <p className="text-xs uppercase text-paz-muted">{d.toLocaleString('pt-BR', { month: 'short' })}</p>
+                  <p className="text-3xl font-bold text-paz-navy">{d.getDate()}</p>
+                </div>
+                <div>
+                  <p className="text-lg font-semibold text-paz-navy">{ev.title}</p>
+                  {ev.recurring && <p className="text-sm text-paz-muted">{ev.recurring}</p>}
+                  <p className="text-sm text-paz-muted">{ev.location}</p>
+                </div>
+              </li>
+            )
+          })}
+        </ul>
+      </SiteSection>
     </>
   )
 }

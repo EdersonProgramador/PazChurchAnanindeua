@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import { GestaoTabBar, GestaoTabBody, type GestaoTab } from '../components/gestao/GestaoTabs'
-import { ScreenHeader } from '../components/ScreenHeader'
+import { PageTitle } from '../components/site/PageTitle'
 import { userCanGestao } from '../integrations/apiClient'
 
 export function GestaoPage() {
@@ -23,12 +23,14 @@ export function GestaoPage() {
 
   return (
     <>
-      <ScreenHeader title="Gestão · Igreja" showInfo={false} />
+      <PageTitle title="Gestão" subtitle="Life Groups, cultos, mensagens e voluntários." />
       <GestaoTabBar tab={tab} setTab={setTab} perms={perms} />
       <GestaoTabBody tab={tab} perms={perms} />
-      <Link to="/admin" className="block py-4 text-center text-sm text-paz-accent">
-        Voltar ao admin
-      </Link>
+      <p className="py-6 text-center">
+        <Link to="/admin" className="text-sm text-paz-accent hover:underline">
+          Voltar ao admin
+        </Link>
+      </p>
     </>
   )
 }

@@ -16,6 +16,11 @@ export const CHURCH = {
 }
 
 export const STATIC_COPY: Record<string, Record<string, string>> = {
+  'paz-church/visao': {
+    title: 'Nossa visão',
+    body:
+      'Formar discípulos que amam a Deus, amam as pessoas e servem o Reino — em família, em Life Groups e na missão local e global, como a rede Paz Church em Belém.',
+  },
   'paz-church/pastores': {
     title: 'Nossos Pastores',
     body: 'A liderança de Paz Church Ananindeua serve com o coração voltado a discipulado, família e missão na região metropolitana de Belém.',

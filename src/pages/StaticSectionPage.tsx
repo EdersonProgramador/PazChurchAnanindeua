@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom'
-import { ScreenHeader } from '../components/ScreenHeader'
+import { PageTitle } from '../components/site/PageTitle'
+import { SiteSection } from '../components/site/SiteSection'
 import { STATIC_COPY } from '../data/churchContent'
 
 type Props = { base: string }
@@ -14,10 +15,10 @@ export function StaticSectionPage({ base }: Props) {
 
   return (
     <>
-      <ScreenHeader title={copy.title} />
-      <div className="paz-screen-enter whitespace-pre-line p-5 text-sm leading-relaxed text-paz-navy">
-        {copy.body}
-      </div>
+      <PageTitle title={copy.title} crumbs={[{ label: 'Home', to: '/' }, { label: copy.title }]} />
+      <SiteSection>
+        <p className="prose-paz mx-auto max-w-3xl whitespace-pre-line">{copy.body}</p>
+      </SiteSection>
     </>
   )
 }

@@ -1,5 +1,6 @@
 import { FormEvent, useState } from 'react'
-import { ScreenHeader } from '../components/ScreenHeader'
+import { PageTitle } from '../components/site/PageTitle'
+import { SiteSection } from '../components/site/SiteSection'
 import { api } from '../integrations/apiClient'
 
 const AGE_OPTIONS = [
@@ -41,20 +42,17 @@ export function LifeGroupSignupPage() {
 
   return (
     <>
-      <ScreenHeader title="Life Groups" />
-      <motionImg />
-      <div className="space-y-4 bg-white p-4">
-        <div className="paz-screen-enter text-sm leading-relaxed text-paz-navy">
-          <h2 className="text-lg font-bold">Life Groups</h2>
-          <p className="mt-2 text-paz-muted">
-            O Life Group é a Igreja no Lar: amizades, estudo da Palavra e oração. Temos grupos para todas as idades.
-          </p>
-          <p className="mt-2">
-            Se você mora em <strong>Ananindeua, Belém ou região</strong>, preencha o formulário e recomendaremos um
-            grupo para o seu perfil.
-          </p>
-        </div>
-        <form onSubmit={onSubmit} className="space-y-3">
+      <PageTitle
+        title="Inscrição Life Group"
+        subtitle="Preencha os campos e recomendaremos um grupo na região de Ananindeua."
+        crumbs={[
+          { label: 'Home', to: '/' },
+          { label: 'Life Groups', to: '/life-groups' },
+          { label: 'Inscrição' },
+        ]}
+      />
+      <SiteSection>
+        <form onSubmit={onSubmit} className="mx-auto max-w-lg space-y-3">
           <input name="fullName" required placeholder="Nome completo" className="field" />
           <input name="email" type="email" required placeholder="Email" className="field" />
           <input name="phone" required placeholder="Telefone / WhatsApp" className="field" />
@@ -70,28 +68,11 @@ export function LifeGroupSignupPage() {
           <textarea name="message" placeholder="Mensagem (opcional)" className="field min-h-24" />
           {ok && <p className="text-sm text-emerald-700">{ok}</p>}
           {error && <p className="text-sm text-red-600">{error}</p>}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full rounded-lg bg-paz-navy py-3 font-semibold text-white disabled:opacity-60"
-          >
-            {loading ? 'Enviando…' : 'Quero participar'}
+          <button type="submit" disabled={loading} className="btn-primary w-full py-3">
+            {loading ? 'Enviando…' : 'Enviar inscrição'}
           </button>
         </form>
-      </div>
+      </SiteSection>
     </>
-  )
-}
-
-function motionImg() {
-  return (
-    <img
-      src="/image-bd41641a-23fd-4733-b099-8d9de240aa9b.png"
-      alt=""
-      className="paz-screen-enter h-36 w-full object-cover"
-      onError={(e) => {
-        e.currentTarget.style.display = 'none'
-      }}
-    />
   )
 }

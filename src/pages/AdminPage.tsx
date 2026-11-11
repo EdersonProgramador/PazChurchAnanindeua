@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import { RbacCrudPanel } from '../components/RbacCrudPanel'
-import { ScreenHeader } from '../components/ScreenHeader'
+import { PageTitle } from '../components/site/PageTitle'
+import { SiteSection } from '../components/site/SiteSection'
 import { api } from '../integrations/apiClient'
 
 export function AdminPage() {
@@ -17,9 +18,9 @@ export function AdminPage() {
 
   return (
     <>
-      <ScreenHeader title="Admin · RBAC" showInfo={false} />
-      <div className="space-y-4 p-4">
-        <section className="paz-card p-4">
+      <PageTitle title="Administração · RBAC" subtitle="Cargos, permissões e funções do sistema." />
+      <SiteSection>
+        <section className="paz-card mb-6 p-4">
           <h2 className="mb-2 font-semibold">Serviços Neon</h2>
           <ul className="space-y-1 text-sm">
             {health &&
@@ -32,15 +33,14 @@ export function AdminPage() {
           </ul>
         </section>
         <RbacCrudPanel entity="roles" />
+        <div className="h-4" />
         <RbacCrudPanel entity="permissions" />
+        <div className="h-4" />
         <RbacCrudPanel entity="functions" />
-        <Link to="/gestao" className="block rounded-lg bg-paz-navy py-3 text-center text-sm font-medium text-white">
+        <Link to="/gestao" className="btn-primary mt-8 block py-3 text-center">
           Gestão Igreja / Life Groups
         </Link>
-        <Link to="/" className="block text-center text-sm text-paz-accent">
-          Voltar ao app
-        </Link>
-      </div>
+      </SiteSection>
     </>
   )
 }
