@@ -19,7 +19,8 @@ export function LifeGroupsPage() {
         crumbs={[{ label: 'Home', to: '/' }, { label: 'Life Groups' }]}
       />
       <SiteSection wide>
-        <div className="mx-auto aspect-video w-full max-w-4xl overflow-hidden rounded-xl bg-paz-navy shadow-sm ring-1 ring-slate-200/80">
+        <div className="site-container max-w-4xl sm:px-0">
+        <div className="aspect-video w-full overflow-hidden rounded-xl bg-paz-navy shadow-sm ring-1 ring-slate-200/80">
           <iframe
             title="Life Groups — Paz Church"
             src="https://www.youtube.com/embed/TT89xopGHd0?start=3&rel=0"
@@ -29,6 +30,7 @@ export function LifeGroupsPage() {
             loading="lazy"
             referrerPolicy="strict-origin-when-cross-origin"
           />
+        </div>
         </div>
       </SiteSection>
       <SiteSection>

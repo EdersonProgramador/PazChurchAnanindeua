@@ -8,41 +8,50 @@ type Props = { posts: FeedPost[] }
 export function HomeFeedSection({ posts }: Props) {
   const [bgSrc, setBgSrc] = useState(CHURCH.facadeImage)
 
+  const onBgError = () => {
+    if (bgSrc !== CHURCH.facadeImageRemote) setBgSrc(CHURCH.facadeImageRemote)
+  }
+
   return (
-    <div className="relative overflow-hidden rounded-2xl shadow-md ring-1 ring-slate-200/60">
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
+    <div className="overflow-hidden rounded-2xl bg-white shadow-md ring-1 ring-slate-200/60">
+      <div className="border-b border-slate-200/80 bg-slate-100">
         <img
           src={bgSrc}
-          alt=""
-          className="h-full w-full min-h-[280px] scale-105 object-cover object-center"
-          onError={() => {
-            if (bgSrc !== CHURCH.facadeImageRemote) setBgSrc(CHURCH.facadeImageRemote)
-          }}
+          alt="Fachada Paz Church Ananindeua"
+          width={1360}
+          height={640}
+          className="block h-auto w-full object-contain object-center sm:aspect-[21/9] sm:max-h-[280px] sm:object-cover sm:object-center"
+          onError={onBgError}
+          decoding="async"
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-paz-navy/55 via-paz-navy/35 to-paz-navy/50" />
       </div>
 
-      <div className="relative grid min-h-[280px] gap-4 p-4 sm:gap-6 sm:p-6 md:grid-cols-2 md:p-8 lg:grid-cols-3">
+      <div className="grid gap-2 p-2 sm:gap-6 sm:p-6 md:grid-cols-2 md:p-8 lg:grid-cols-3">
         {posts.map((post) => (
-          <article
-            key={post.id}
-            className="paz-screen-enter flex flex-col justify-between rounded-xl border border-white/20 bg-white/92 p-5 shadow-sm backdrop-blur-sm transition hover:bg-white"
-          >
-            <div>
-              <p className="text-xs font-bold uppercase tracking-wide text-paz-accent">{post.series}</p>
-              <h2 className="mt-2 text-lg font-bold leading-snug text-paz-navy">{post.title}</h2>
-              {post.subtitle && <p className="mt-2 text-sm text-paz-muted">{post.subtitle}</p>}
-            </div>
-          </article>
+          <FeedCard key={post.id} post={post} />
         ))}
       </div>
 
-      <Link
-        to="/paz-church/localizacao"
-        className="absolute bottom-3 right-4 z-10 rounded-lg bg-white/90 px-3 py-1.5 text-xs font-semibold text-paz-navy shadow-sm backdrop-blur hover:bg-white sm:bottom-5 sm:right-6"
-      >
-        Ver localização
-      </Link>
+      <div className="border-t border-slate-100 p-2 sm:flex sm:justify-end sm:p-5">
+        <Link
+          to="/paz-church/localizacao"
+          className="flex min-h-10 w-full items-center justify-center rounded-lg bg-paz-navy px-4 text-sm font-semibold text-white active:opacity-90 sm:min-h-11 sm:w-auto sm:rounded-xl sm:bg-white sm:text-paz-navy sm:shadow-sm sm:ring-1 sm:ring-slate-200/80"
+        >
+          Ver localização
+        </Link>
+      </div>
     </div>
+  )
+}
+
+function FeedCard({ post }: { post: FeedPost }) {
+  return (
+    <article className="rounded-lg border border-slate-200/90 bg-white p-3 shadow-sm sm:rounded-xl sm:p-5 sm:hover:border-paz-accent/30 sm:hover:shadow-md">
+      <p className="text-[11px] font-bold uppercase tracking-wide text-paz-accent sm:text-xs">{post.series}</p>
+      <h2 className="mt-1 text-sm font-bold leading-snug text-paz-navy sm:mt-2 sm:text-lg">{post.title}</h2>
+      {post.subtitle && (
+        <p className="mt-1 line-clamp-2 text-xs text-paz-muted sm:mt-2 sm:text-sm">{post.subtitle}</p>
+      )}
+    </article>
   )
 }

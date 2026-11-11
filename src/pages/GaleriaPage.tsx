@@ -15,21 +15,22 @@ export function GaleriaPage() {
         crumbs={[{ label: 'Home', to: '/' }, { label: 'Galeria' }]}
       />
       <SiteSection>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
           {GALLERY_ITEMS.map((item) => (
             <button
               key={item.src}
               type="button"
-              className="group overflow-hidden rounded-xl border bg-white text-left shadow-sm ring-1 ring-slate-100"
+              className="group overflow-hidden rounded-xl border bg-white text-left shadow-sm ring-1 ring-slate-100 active:ring-paz-accent/40 sm:hover:ring-paz-accent/30"
               onClick={() => setLightbox(item.src)}
             >
               <img
                 src={item.src}
                 alt={item.alt ?? item.title}
-                className="aspect-[4/3] w-full object-cover transition group-hover:scale-[1.02]"
+                className="aspect-[4/3] w-full object-cover sm:transition sm:group-hover:scale-[1.02]"
                 loading="lazy"
+                decoding="async"
               />
-              <p className="p-3 text-sm font-medium text-paz-navy">{item.title}</p>
+              <p className="p-3 text-left text-sm font-medium leading-snug text-paz-navy">{item.title}</p>
             </button>
           ))}
         </div>

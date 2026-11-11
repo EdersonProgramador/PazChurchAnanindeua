@@ -21,7 +21,7 @@ export function HomePage() {
       <HomeHeroVideo />
 
       <SiteSection className="bg-white">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
           <HomeCard
             label="Próxima reunião"
             icon={Calendar}
@@ -117,7 +117,7 @@ function HomeCard({
   return (
     <Link
       to={to}
-      className="paz-screen-enter flex min-h-[140px] flex-col justify-between rounded-xl border border-slate-100 bg-white p-5 shadow-sm transition hover:border-paz-accent/30 hover:shadow-md"
+      className="paz-screen-enter flex min-h-[7.5rem] flex-col justify-between rounded-xl border border-slate-100 bg-white p-4 shadow-sm active:border-paz-accent/40 active:bg-slate-50/80 sm:min-h-[140px] sm:p-5 sm:hover:border-paz-accent/30 sm:hover:shadow-md"
     >
       <div>
         <div className="flex items-center justify-between gap-2">

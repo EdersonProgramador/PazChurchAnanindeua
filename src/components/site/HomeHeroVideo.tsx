@@ -8,7 +8,7 @@ export function HomeHeroVideo() {
       className="relative w-full overflow-hidden bg-paz-navy"
       aria-label="Vídeo de apresentação — Somos família"
     >
-      <div className="relative aspect-[1920/850] w-full max-h-[min(56vh,850px)] min-h-[220px] sm:min-h-[280px]">
+      <div className="relative h-[42svh] max-h-[52svh] w-full sm:h-auto sm:aspect-[1920/850] sm:min-h-[280px] sm:max-h-[min(56vh,850px)]">
         <video
           className="absolute inset-0 h-full w-full object-cover"
           autoPlay

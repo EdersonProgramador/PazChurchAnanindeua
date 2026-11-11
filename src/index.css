@@ -6,11 +6,33 @@
 
 :root {
   --paz-navy: #1a2f4e;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
 }
 
 body {
   @apply font-sans text-paz-navy antialiased;
   margin: 0;
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .paz-screen-enter,
+  .paz-screen-enter.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 .paz-screen-enter {
@@ -31,16 +53,32 @@ body {
 }
 
 .field {
-  @apply w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm text-paz-navy;
+  @apply w-full min-h-11 rounded-lg border border-slate-200 px-3 py-2.5 text-base text-paz-navy sm:text-sm;
 }
 
 .btn-primary {
-  @apply rounded bg-paz-navy py-2 text-sm font-medium text-white;
+  @apply inline-flex min-h-11 items-center justify-center rounded-lg bg-paz-navy px-5 py-2.5 text-base font-semibold text-white active:scale-[0.98] sm:text-sm;
+}
+
+.touch-target {
+  @apply inline-flex min-h-11 min-w-11 items-center justify-center;
+}
+
+.pb-safe {
+  padding-bottom: max(0.75rem, var(--safe-bottom));
+}
+
+:focus-visible {
+  @apply outline-2 outline-offset-2 outline-paz-accent;
 }
 
 @layer components {
   .site-container {
     @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .sr-only-focusable:not(:focus):not(:focus-within) {
+    @apply sr-only;
   }
 
   .prose-paz {
