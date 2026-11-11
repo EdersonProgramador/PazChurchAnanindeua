@@ -5,15 +5,22 @@ import { HomeFeedSection } from '../components/site/HomeFeedSection'
 import { HomeHeroVideo } from '../components/site/HomeHeroVideo'
 import { SiteSection } from '../components/site/SiteSection'
 import { CHURCH } from '../data/churchContent'
-import { api, type FeedPost, type HomeSummary } from '../integrations/apiClient'
+import { api, type InstagramPost, type HomeSummary } from '../integrations/apiClient'
 
 export function HomePage() {
   const [summary, setSummary] = useState<HomeSummary | null>(null)
-  const [banners, setBanners] = useState<FeedPost[]>([])
+  const [instagram, setInstagram] = useState<InstagramPost[]>([])
+  const [instagramProfile, setInstagramProfile] = useState('https://www.instagram.com/pazbelempa/')
 
   useEffect(() => {
     api.homeSummary().then(setSummary).catch(console.error)
-    api.feed().then((r) => setBanners(r.posts)).catch(console.error)
+    api
+      .instagramPazBelem()
+      .then((r) => {
+        setInstagram(r.posts)
+        if (r.profileUrl) setInstagramProfile(r.profileUrl)
+      })
+      .catch(console.error)
   }, [])
 
   return (
@@ -63,7 +70,7 @@ export function HomePage() {
       </SiteSection>
 
       <SiteSection className="bg-slate-50">
-        <HomeFeedSection posts={banners} />
+        <HomeFeedSection instagramPosts={instagram} profileUrl={instagramProfile} />
       </SiteSection>
 
       <SiteSection className="border-t border-slate-200 bg-white">

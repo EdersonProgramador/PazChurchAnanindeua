@@ -1,6 +1,5 @@
 const HERO_VIDEO = '/hero-home.mp4'
 const HERO_OVERLAY = '/hero-overlay-camada_transp.png'
-const HERO_POSTER = '/image-12a4bb2c-a74f-4587-aacb-ba96ca812599.jpg'
 
 export function HomeHeroVideo() {
   return (
@@ -15,8 +14,7 @@ export function HomeHeroVideo() {
           muted
           playsInline
           loop
-          preload="metadata"
-          poster={HERO_POSTER}
+          preload="auto"
         >
           <source src={HERO_VIDEO} type="video/mp4" />
         </video>

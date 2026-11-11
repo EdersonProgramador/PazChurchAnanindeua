@@ -11,6 +11,8 @@ export const CHURCH = {
   state: 'PA',
   cep: '67110-140',
   facebook: 'https://www.facebook.com/pages/Paz%20Church%20Ananindeua/2017134335074716/',
+  lifeGroupsVideoWatch: 'https://www.youtube.com/watch?v=TT89xopGHd0',
+  lifeGroupsVideoEmbed: 'https://www.youtube.com/embed/TT89xopGHd0?rel=0',
   site: 'https://paz.church/belem/events/local/paz-church-metropole-ananindeua/',
   /** Centro aproximado — Paz Church Metrópole BR-316 */
   mapLat: -1.3658,

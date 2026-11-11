@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { LifeGroupsVideo } from '../components/site/LifeGroupsVideo'
 import { PageTitle } from '../components/site/PageTitle'
 import { SiteSection } from '../components/site/SiteSection'
 import { api, type LifeGroup } from '../integrations/apiClient'
@@ -18,19 +19,9 @@ export function LifeGroupsPage() {
         subtitle="A igreja no lar — comunhão, Palavra e oração para todas as idades."
         crumbs={[{ label: 'Home', to: '/' }, { label: 'Life Groups' }]}
       />
-      <SiteSection wide>
-        <div className="site-container max-w-4xl sm:px-0">
-        <div className="aspect-video w-full overflow-hidden rounded-xl bg-paz-navy shadow-sm ring-1 ring-slate-200/80">
-          <iframe
-            title="Life Groups — Paz Church"
-            src="https://www.youtube.com/embed/TT89xopGHd0?start=3&rel=0"
-            className="h-full w-full"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="strict-origin-when-cross-origin"
-          />
-        </div>
+      <SiteSection>
+        <div className="mx-auto max-w-4xl">
+          <LifeGroupsVideo />
         </div>
       </SiteSection>
       <SiteSection>

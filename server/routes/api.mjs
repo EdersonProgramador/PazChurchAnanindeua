@@ -7,6 +7,7 @@ import * as storageCtrl from '../controllers/storageController.mjs'
 import * as lifeGroupCtrl from '../controllers/lifeGroupController.mjs'
 import * as churchMgmtCtrl from '../controllers/churchMgmtController.mjs'
 import * as volunteerCtrl from '../controllers/volunteerController.mjs'
+import * as instagramCtrl from '../controllers/instagramController.mjs'
 import { authenticate } from '../middleware/auth.mjs'
 import { requirePermission } from '../middleware/rbac.mjs'
 import { requireGestao, requireContent, requireLifeGroup } from '../middleware/gestao.mjs'
@@ -33,6 +34,7 @@ apiRouter.get('/auth/me', authenticate, authCtrl.me)
 
 apiRouter.get('/church', contentCtrl.churchInfo)
 apiRouter.get('/feed', contentCtrl.listFeed)
+apiRouter.get('/instagram/pazbelempa', instagramCtrl.listPazBelem)
 apiRouter.get('/feed/live', contentCtrl.feedLiveToken)
 apiRouter.get('/events', contentCtrl.listEvents)
 apiRouter.get('/menu', contentCtrl.listMenu)

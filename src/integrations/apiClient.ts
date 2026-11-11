@@ -33,6 +33,8 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 export const api = {
   church: () => request<{ church: Record<string, string> }>('/church'),
   feed: () => request<{ posts: FeedPost[] }>('/feed'),
+  instagramPazBelem: () =>
+    request<{ posts: InstagramPost[]; profileUrl: string }>('/instagram/pazbelempa'),
   feedLive: () => request<Record<string, unknown>>('/feed/live'),
   events: (past?: boolean) => request<{ events: ChurchEvent[] }>(`/events?past=${past ? 'true' : 'false'}`),
   menu: (section?: string) =>
@@ -122,6 +124,15 @@ export type RbacItem = {
   slug?: string
   code?: string
   description?: string | null
+}
+
+export type InstagramPost = {
+  id: string
+  permalink: string
+  imageUrl: string
+  caption: string
+  handle?: string
+  profileUrl?: string
 }
 
 export type FeedPost = {
