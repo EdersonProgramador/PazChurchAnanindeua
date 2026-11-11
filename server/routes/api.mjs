@@ -6,8 +6,10 @@ import * as rbacCtrl from '../controllers/rbacController.mjs'
 import * as storageCtrl from '../controllers/storageController.mjs'
 import * as lifeGroupCtrl from '../controllers/lifeGroupController.mjs'
 import * as churchMgmtCtrl from '../controllers/churchMgmtController.mjs'
+import * as volunteerCtrl from '../controllers/volunteerController.mjs'
 import { authenticate } from '../middleware/auth.mjs'
 import { requirePermission } from '../middleware/rbac.mjs'
+import { requireGestao, requireContent, requireLifeGroup } from '../middleware/gestao.mjs'
 import { realtimeConfigured } from '../services/realtimeService.mjs'
 import { storageConfigured } from '../services/storageService.mjs'
 import { config } from '../config.mjs'
@@ -39,19 +41,35 @@ apiRouter.get('/locations', churchMgmtCtrl.listLocations)
 apiRouter.get('/sermons', churchMgmtCtrl.listSermons)
 apiRouter.get('/life-groups/public', lifeGroupCtrl.listPublic)
 apiRouter.post('/life-groups/signup', lifeGroupCtrl.createSignup)
+apiRouter.get('/volunteers/ministries', volunteerCtrl.listMinistriesPublic)
+apiRouter.post('/volunteers/signup', volunteerCtrl.createVolunteerSignup)
 
 const gestao = Router()
-gestao.use(authenticate, requirePermission('lifegroup.manage'))
-gestao.get('/life-groups', lifeGroupCtrl.listGroupsAdmin)
-gestao.post('/life-groups', lifeGroupCtrl.createGroup)
-gestao.put('/life-groups/:id', lifeGroupCtrl.updateGroup)
-gestao.delete('/life-groups/:id', lifeGroupCtrl.deleteGroup)
-gestao.get('/signups', lifeGroupCtrl.listSignups)
-gestao.patch('/signups/:id', lifeGroupCtrl.updateSignup)
-gestao.get('/reports', lifeGroupCtrl.listReports)
-gestao.post('/reports', lifeGroupCtrl.createReport)
-gestao.get('/locations', churchMgmtCtrl.listLocationsAdmin)
-gestao.post('/locations', churchMgmtCtrl.upsertLocation)
+gestao.use(authenticate, requireGestao)
+gestao.get('/life-groups', requireLifeGroup, lifeGroupCtrl.listGroupsAdmin)
+gestao.post('/life-groups', requireLifeGroup, lifeGroupCtrl.createGroup)
+gestao.put('/life-groups/:id', requireLifeGroup, lifeGroupCtrl.updateGroup)
+gestao.delete('/life-groups/:id', requireLifeGroup, lifeGroupCtrl.deleteGroup)
+gestao.get('/signups', requireLifeGroup, lifeGroupCtrl.listSignups)
+gestao.patch('/signups/:id', requireLifeGroup, lifeGroupCtrl.updateSignup)
+gestao.get('/reports', requireLifeGroup, lifeGroupCtrl.listReports)
+gestao.post('/reports', requireLifeGroup, lifeGroupCtrl.createReport)
+gestao.get('/locations', requireContent, churchMgmtCtrl.listLocationsAdmin)
+gestao.post('/locations', requireContent, churchMgmtCtrl.upsertLocation)
+gestao.get('/events', requireContent, churchMgmtCtrl.listEventsAdmin)
+gestao.post('/events', requireContent, churchMgmtCtrl.createEvent)
+gestao.put('/events/:id', requireContent, churchMgmtCtrl.updateEvent)
+gestao.delete('/events/:id', requireContent, churchMgmtCtrl.deleteEvent)
+gestao.get('/sermons', requireContent, churchMgmtCtrl.listSermonsAdmin)
+gestao.post('/sermons', requireContent, churchMgmtCtrl.createSermon)
+gestao.put('/sermons/:id', requireContent, churchMgmtCtrl.updateSermon)
+gestao.delete('/sermons/:id', requireContent, churchMgmtCtrl.deleteSermon)
+gestao.get('/feed', requireContent, churchMgmtCtrl.listFeedAdmin)
+gestao.post('/feed', requireContent, churchMgmtCtrl.createFeed)
+gestao.put('/feed/:id', requireContent, churchMgmtCtrl.updateFeed)
+gestao.delete('/feed/:id', requireContent, churchMgmtCtrl.deleteFeed)
+gestao.get('/volunteers', requireContent, volunteerCtrl.listVolunteerSignups)
+gestao.patch('/volunteers/:id', requireContent, volunteerCtrl.patchVolunteerSignup)
 
 apiRouter.use('/gestao', gestao)
 

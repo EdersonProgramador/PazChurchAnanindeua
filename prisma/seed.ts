@@ -190,6 +190,19 @@ async function main() {
     })
   }
 
+  const ministryCount = await prisma.ministry.count()
+  if (ministryCount === 0) {
+    await prisma.ministry.createMany({
+      data: [
+        { name: 'Atmosfera', slug: 'atmosfera', description: 'Ambiente e recepção nos cultos', sortOrder: 1 },
+        { name: 'Paz Kids', slug: 'paz-kids', description: 'Ministério infantil', sortOrder: 2 },
+        { name: 'Amor em Ação', slug: 'amor-em-acao', description: 'Ação social e comunidade', sortOrder: 3 },
+        { name: 'Mídia', slug: 'midia', description: 'Som, imagem e transmissão', sortOrder: 4 },
+        { name: 'Recepção', slug: 'recepcao', description: 'Acolhimento de visitantes', sortOrder: 5 },
+      ],
+    })
+  }
+
   const locCount = await prisma.churchLocation.count()
   if (locCount === 0) {
     const metro = await prisma.churchLocation.create({

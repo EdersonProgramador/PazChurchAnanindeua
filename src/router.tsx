@@ -10,6 +10,7 @@ import { SchedulePage } from './pages/SchedulePage'
 import { StaticSectionPage } from './pages/StaticSectionPage'
 import { LifeGroupSignupPage } from './pages/LifeGroupSignupPage'
 import { GestaoPage } from './pages/GestaoPage'
+import { VolunteerSignupPage } from './pages/VolunteerSignupPage'
 
 export function AppRouter() {
   return (
@@ -23,6 +24,7 @@ export function AppRouter() {
         <Route path="life-groups/inscricao" element={<LifeGroupSignupPage />} />
         <Route path="life-groups/:section" element={<StaticSectionPage base="life-groups" />} />
         <Route path="mais" element={<MorePage />} />
+        <Route path="mais/voluntario" element={<VolunteerSignupPage />} />
         <Route path="mais/:section" element={<StaticSectionPage base="mais" />} />
         <Route path="admin" element={<AdminPage />} />
         <Route path="gestao" element={<GestaoPage />} />

@@ -64,6 +64,53 @@ export const api = {
   gestaoCreateReport: (body: Record<string, unknown>) =>
     request('/gestao/reports', { method: 'POST', body: JSON.stringify(body) }),
   gestaoLocations: () => request<{ locations: ChurchLocation[] }>('/gestao/locations'),
+  ministries: () => request<{ ministries: Ministry[] }>('/volunteers/ministries'),
+  volunteerSignup: (body: VolunteerSignupInput) =>
+    request<{ message: string }>('/volunteers/signup', { method: 'POST', body: JSON.stringify(body) }),
+  gestaoEvents: () => request<{ events: ChurchEvent[] }>('/gestao/events'),
+  gestaoCreateEvent: (body: Record<string, unknown>) =>
+    request('/gestao/events', { method: 'POST', body: JSON.stringify(body) }),
+  gestaoSermons: () => request<{ sermons: Sermon[] }>('/gestao/sermons'),
+  gestaoCreateSermon: (body: Record<string, unknown>) =>
+    request('/gestao/sermons', { method: 'POST', body: JSON.stringify(body) }),
+  gestaoFeed: () => request<{ posts: FeedPost[] }>('/gestao/feed'),
+  gestaoCreateFeed: (body: Record<string, unknown>) =>
+    request('/gestao/feed', { method: 'POST', body: JSON.stringify(body) }),
+  gestaoVolunteers: () => request<{ signups: VolunteerSignup[] }>('/gestao/volunteers'),
+  gestaoPatchVolunteer: (id: string, body: Record<string, unknown>) =>
+    request(`/gestao/volunteers/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
+}
+
+export function userCanGestao(user: ApiUser | null) {
+  if (!user?.permissions) return false
+  return user.permissions.includes('lifegroup.manage') || user.permissions.includes('content.manage')
+}
+
+export type Ministry = { id: string; name: string; slug: string; description?: string | null }
+
+export type Sermon = {
+  id: string
+  title: string
+  category: string
+  speaker?: string | null
+  featured?: boolean
+  publishedAt: string
+}
+
+export type VolunteerSignupInput = {
+  fullName: string
+  email: string
+  phone: string
+  ministryId?: string
+  ministryLabel?: string
+  message?: string
+}
+
+export type VolunteerSignup = VolunteerSignupInput & {
+  id: string
+  status: string
+  createdAt: string
+  ministry?: Ministry | null
 }
 
 export type AdminEntity = 'roles' | 'permissions' | 'functions'
