@@ -100,7 +100,7 @@ async function main() {
           title: 'O REINO IMPARÁVEL',
           subtitle: 'Paz Church 2026 · Isaías 9.7',
           series: 'Visão 2026',
-          imageUrl: '/logo-pazchurchananindeua-9dc3104f-74c5-44ba-af12-06a3856a8947.png',
+          imageUrl: '/image-c1835de4-9a9c-4137-9226-f3e3698f33a9.jpg',
           sortOrder: 1,
         },
         {
@@ -108,12 +108,14 @@ async function main() {
           subtitle: 'Série: Firmes na Babilônia',
           series: 'Firmes na Babilônia',
           speaker: 'Willey Sandro',
+          imageUrl: '/image-c1835de4-9a9c-4137-9226-f3e3698f33a9.jpg',
           sortOrder: 2,
         },
         {
           title: 'UMA DECISÃO INEGOCIÁVEL',
           subtitle: 'Culto de Celebração',
           series: 'Mensagens',
+          imageUrl: '/image-c1835de4-9a9c-4137-9226-f3e3698f33a9.jpg',
           sortOrder: 3,
         },
       ],
@@ -241,6 +243,7 @@ async function main() {
         title: 'Como fazer meu Life Group Crescer — Parte 2',
         series: 'Liderança',
         speaker: 'Equipe de Life Groups',
+        imageUrl: '/image-c1835de4-9a9c-4137-9226-f3e3698f33a9.jpg',
         sortOrder: 0,
       },
     })

@@ -6,6 +6,7 @@ export type GalleryItem = {
 
 /** Fotos locais + link para álbum no Facebook (referência Belém). */
 export const GALLERY_ITEMS: GalleryItem[] = [
+  { src: '/image-c1835de4-9a9c-4137-9226-f3e3698f33a9.jpg', title: 'Fachada — Paz Church Ananindeua' },
   { src: '/image-12a4bb2c-a74f-4587-aacb-ba96ca812599.jpg', title: 'Paz Church — região Amazônia' },
   { src: '/image-bd41641a-23fd-4733-b099-8d9de240aa9b.png', title: 'Life Groups' },
   { src: '/image-2b9723df-aaeb-45e1-a0c0-433ae9995a66.png', title: 'Comunidade' },
