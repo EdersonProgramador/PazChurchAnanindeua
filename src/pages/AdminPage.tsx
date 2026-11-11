@@ -34,6 +34,9 @@ export function AdminPage() {
         <RbacCrudPanel entity="roles" />
         <RbacCrudPanel entity="permissions" />
         <RbacCrudPanel entity="functions" />
+        <Link to="/gestao" className="block rounded-lg bg-paz-navy py-3 text-center text-sm font-medium text-white">
+          Gestão Igreja / Life Groups
+        </Link>
         <Link to="/" className="block text-center text-sm text-paz-accent">
           Voltar ao app
         </Link>

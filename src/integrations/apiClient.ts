@@ -50,6 +50,20 @@ export const api = {
     request<{ item: RbacItem }>(`/admin/${entity}/${id}`, { method: 'PUT', body: JSON.stringify(body) }),
   adminDelete: (entity: AdminEntity, id: string) =>
     request<void>(`/admin/${entity}/${id}`, { method: 'DELETE' }),
+  homeSummary: () => request<HomeSummary>('/home/summary'),
+  lifeGroupsPublic: () => request<{ groups: LifeGroup[] }>('/life-groups/public'),
+  lifeGroupSignup: (body: LifeGroupSignupInput) =>
+    request<{ message: string }>('/life-groups/signup', { method: 'POST', body: JSON.stringify(body) }),
+  gestaoLifeGroups: () => request<{ groups: LifeGroup[] }>('/gestao/life-groups'),
+  gestaoCreateGroup: (body: Partial<LifeGroup>) =>
+    request('/gestao/life-groups', { method: 'POST', body: JSON.stringify(body) }),
+  gestaoSignups: () => request<{ signups: LifeGroupSignup[] }>('/gestao/signups'),
+  gestaoPatchSignup: (id: string, body: Record<string, unknown>) =>
+    request(`/gestao/signups/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
+  gestaoReports: () => request<{ reports: LifeGroupReport[] }>('/gestao/reports'),
+  gestaoCreateReport: (body: Record<string, unknown>) =>
+    request('/gestao/reports', { method: 'POST', body: JSON.stringify(body) }),
+  gestaoLocations: () => request<{ locations: ChurchLocation[] }>('/gestao/locations'),
 }
 
 export type AdminEntity = 'roles' | 'permissions' | 'functions'
@@ -87,4 +101,57 @@ export type MenuLink = {
   path?: string | null
   external?: string | null
   icon?: string | null
+}
+
+export type ChurchLocation = {
+  id: string
+  name: string
+  address: string
+  city: string
+  schedule?: string | null
+}
+
+export type HomeSummary = {
+  nextMeeting: ChurchEvent | null
+  recentSermon: { title: string; category: string; publishedAt: string } | null
+  leadership: FeedPost | null
+  locations: ChurchLocation[]
+}
+
+export type LifeGroup = {
+  id: string
+  name: string
+  leaderName: string
+  neighborhood: string
+  city: string
+  dayOfWeek: string
+  meetingTime: string
+  ageGroup: string
+  active?: boolean
+}
+
+export type LifeGroupSignupInput = {
+  fullName: string
+  email: string
+  phone: string
+  city: string
+  neighborhood?: string
+  ageGroup: string
+  message?: string
+}
+
+export type LifeGroupSignup = LifeGroupSignupInput & {
+  id: string
+  status: string
+  lifeGroupId?: string | null
+  createdAt: string
+}
+
+export type LifeGroupReport = {
+  id: string
+  lifeGroupId: string
+  weekDate: string
+  attendance: number
+  visitors: number
+  notes?: string | null
 }

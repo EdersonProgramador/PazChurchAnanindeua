@@ -77,16 +77,18 @@ model FeedPost {
 }
 
 model ChurchEvent {
-  id          String   @id @default(cuid())
+  id          String          @id @default(cuid())
   title       String
   description String?
   startsAt    DateTime
   endsAt      DateTime?
-  location    String   @default("Paz Church Metrópole - Ananindeua")
+  location    String          @default("Paz Church Metrópole - Ananindeua")
   recurring   String?
-  isPast      Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  isPast      Boolean         @default(false)
+  locationId  String?
+  churchLoc   ChurchLocation? @relation(fields: [locationId], references: [id])
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
 }
 
 model MenuLink {
@@ -98,4 +100,88 @@ model MenuLink {
   icon      String?
   sortOrder Int      @default(0)
   active    Boolean  @default(true)
+}
+
+model ChurchLocation {
+  id          String      @id @default(cuid())
+  name        String
+  slug        String      @unique
+  kind        String      @default("regional")
+  address     String
+  city        String
+  state       String      @default("PA")
+  cep         String?
+  schedule    String?
+  sortOrder   Int         @default(0)
+  active      Boolean     @default(true)
+  lifeGroups  LifeGroup[]
+  events      ChurchEvent[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Sermon {
+  id          String   @id @default(cuid())
+  title       String
+  category    String   @default("Cultos")
+  speaker     String?
+  summary     String?
+  imageUrl    String?
+  publishedAt DateTime @default(now())
+  featured    Boolean  @default(false)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model LifeGroup {
+  id            String            @id @default(cuid())
+  name          String
+  leaderName    String
+  leaderPhone   String?
+  leaderEmail   String?
+  address       String
+  neighborhood  String
+  city          String            @default("Ananindeua")
+  dayOfWeek     String
+  meetingTime   String
+  ageGroup      String            @default("adultos")
+  capacity      Int               @default(12)
+  active        Boolean           @default(true)
+  locationId    String?
+  location      ChurchLocation?   @relation(fields: [locationId], references: [id])
+  signups       LifeGroupSignup[]
+  reports       LifeGroupReport[]
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+}
+
+model LifeGroupSignup {
+  id           String     @id @default(cuid())
+  fullName     String
+  email        String
+  phone        String
+  city         String
+  neighborhood String?
+  ageGroup     String
+  message      String?
+  status       String     @default("pending")
+  lifeGroupId  String?
+  lifeGroup    LifeGroup? @relation(fields: [lifeGroupId], references: [id])
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model LifeGroupReport {
+  id          String    @id @default(cuid())
+  lifeGroupId String
+  lifeGroup   LifeGroup @relation(fields: [lifeGroupId], references: [id], onDelete: Cascade)
+  weekDate    DateTime
+  attendance  Int       @default(0)
+  visitors    Int       @default(0)
+  notes       String?
+  testimony   String?
+  authorName  String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }

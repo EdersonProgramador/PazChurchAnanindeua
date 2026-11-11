@@ -8,6 +8,8 @@ import { MorePage } from './pages/MorePage'
 import { PazChurchPage } from './pages/PazChurchPage'
 import { SchedulePage } from './pages/SchedulePage'
 import { StaticSectionPage } from './pages/StaticSectionPage'
+import { LifeGroupSignupPage } from './pages/LifeGroupSignupPage'
+import { GestaoPage } from './pages/GestaoPage'
 
 export function AppRouter() {
   return (
@@ -18,10 +20,12 @@ export function AppRouter() {
         <Route path="paz-church/:section" element={<StaticSectionPage base="paz-church" />} />
         <Route path="programacao" element={<SchedulePage />} />
         <Route path="life-groups" element={<LifeGroupsPage />} />
+        <Route path="life-groups/inscricao" element={<LifeGroupSignupPage />} />
         <Route path="life-groups/:section" element={<StaticSectionPage base="life-groups" />} />
         <Route path="mais" element={<MorePage />} />
         <Route path="mais/:section" element={<StaticSectionPage base="mais" />} />
         <Route path="admin" element={<AdminPage />} />
+        <Route path="gestao" element={<GestaoPage />} />
       </Route>
       <Route path="login" element={<LoginPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />

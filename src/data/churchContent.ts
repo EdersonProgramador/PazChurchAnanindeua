@@ -42,6 +42,11 @@ export const STATIC_COPY: Record<string, Record<string, string>> = {
   },
   'life-groups/casas': {
     title: 'Missão: Casas de Paz',
-    body: 'Life Groups são comunidades pequenas que se encontram semanalmente para comunhão, estudo e missão.',
+    body:
+      'Life Groups são comunidades pequenas que se encontram semanalmente para comunhão, estudo e missão — como em paz.church/belem/lifegroups.',
+  },
+  'life-groups/enderecos': {
+    title: 'Endereços de Life Group',
+    body: 'Consulte a lista atualizada na aba Life Groups ou inscreva-se para ser conectado a um grupo próximo.',
   },
 }

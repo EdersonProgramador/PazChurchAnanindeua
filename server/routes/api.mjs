@@ -4,6 +4,8 @@ import * as authCtrl from '../controllers/authController.mjs'
 import * as contentCtrl from '../controllers/contentController.mjs'
 import * as rbacCtrl from '../controllers/rbacController.mjs'
 import * as storageCtrl from '../controllers/storageController.mjs'
+import * as lifeGroupCtrl from '../controllers/lifeGroupController.mjs'
+import * as churchMgmtCtrl from '../controllers/churchMgmtController.mjs'
 import { authenticate } from '../middleware/auth.mjs'
 import { requirePermission } from '../middleware/rbac.mjs'
 import { realtimeConfigured } from '../services/realtimeService.mjs'
@@ -32,6 +34,26 @@ apiRouter.get('/feed', contentCtrl.listFeed)
 apiRouter.get('/feed/live', contentCtrl.feedLiveToken)
 apiRouter.get('/events', contentCtrl.listEvents)
 apiRouter.get('/menu', contentCtrl.listMenu)
+apiRouter.get('/home/summary', churchMgmtCtrl.homeSummary)
+apiRouter.get('/locations', churchMgmtCtrl.listLocations)
+apiRouter.get('/sermons', churchMgmtCtrl.listSermons)
+apiRouter.get('/life-groups/public', lifeGroupCtrl.listPublic)
+apiRouter.post('/life-groups/signup', lifeGroupCtrl.createSignup)
+
+const gestao = Router()
+gestao.use(authenticate, requirePermission('lifegroup.manage'))
+gestao.get('/life-groups', lifeGroupCtrl.listGroupsAdmin)
+gestao.post('/life-groups', lifeGroupCtrl.createGroup)
+gestao.put('/life-groups/:id', lifeGroupCtrl.updateGroup)
+gestao.delete('/life-groups/:id', lifeGroupCtrl.deleteGroup)
+gestao.get('/signups', lifeGroupCtrl.listSignups)
+gestao.patch('/signups/:id', lifeGroupCtrl.updateSignup)
+gestao.get('/reports', lifeGroupCtrl.listReports)
+gestao.post('/reports', lifeGroupCtrl.createReport)
+gestao.get('/locations', churchMgmtCtrl.listLocationsAdmin)
+gestao.post('/locations', churchMgmtCtrl.upsertLocation)
+
+apiRouter.use('/gestao', gestao)
 
 apiRouter.get('/storage/health', storageCtrl.storageHealth)
 apiRouter.post(

@@ -15,6 +15,8 @@ const PERMISSIONS = [
   { code: 'rbac.manage', name: 'Gerenciar RBAC', description: 'CRUD de cargos, permissões e funções' },
   { code: 'content.manage', name: 'Gerenciar conteúdo', description: 'Feed, eventos e menus' },
   { code: 'storage.write', name: 'Enviar arquivos', description: 'Upload para Object Storage' },
+  { code: 'lifegroup.manage', name: 'Gestão Life Groups', description: 'CRUD de células, inscrições e sedes' },
+  { code: 'lifegroup.report', name: 'Relatórios LG', description: 'Enviar relatórios semanais' },
 ] as const
 
 const ROLES = [
@@ -23,7 +25,7 @@ const ROLES = [
     slug: 'lider',
     name: 'Liderança',
     description: 'Gestão de conteúdo e relatórios',
-    perms: ['feed.read', 'events.read', 'content.manage', 'storage.write'],
+    perms: ['feed.read', 'events.read', 'content.manage', 'storage.write', 'lifegroup.manage', 'lifegroup.report'],
   },
   {
     slug: 'voluntario',
@@ -168,6 +170,100 @@ async function main() {
           external: 'https://www.facebook.com/pages/Paz%20Church%20Ananindeua/2017134335074716/',
           icon: 'facebook',
           sortOrder: 5,
+        },
+      ],
+    })
+  }
+
+  const inscricao = await prisma.menuLink.findFirst({
+    where: { section: 'life-groups', path: '/life-groups/inscricao' },
+  })
+  if (!inscricao) {
+    await prisma.menuLink.create({
+      data: {
+        section: 'life-groups',
+        label: 'Inscrição Life Group',
+        path: '/life-groups/inscricao',
+        icon: 'heart',
+        sortOrder: 0,
+      },
+    })
+  }
+
+  const locCount = await prisma.churchLocation.count()
+  if (locCount === 0) {
+    const metro = await prisma.churchLocation.create({
+      data: {
+        name: 'Paz Church Metrópole — Ananindeua',
+        slug: 'metropole-ananindeua',
+        kind: 'catedral',
+        address: 'Rodovia BR-316 KM 5, S/N',
+        city: 'Guanabara, Ananindeua',
+        schedule: 'Cultos: domingo 8h e 18h · TADEL domingo 10h',
+        sortOrder: 1,
+      },
+    })
+    const belem = await prisma.churchLocation.create({
+      data: {
+        name: 'Sede Regional — Belém',
+        slug: 'sede-belem',
+        kind: 'regional',
+        address: 'Av. Sen. Lemos, 2039 - Telégrafo',
+        city: 'Belém',
+        schedule: 'Cultos: domingo 9h e 18h',
+        sortOrder: 2,
+      },
+    })
+    await prisma.sermon.create({
+      data: {
+        title: 'O Valor de Uma Vida',
+        category: 'Cultos',
+        speaker: 'Paz Church Belém',
+        featured: true,
+        summary: 'Palavra recente — inspiração para a família Paz Ananindeua.',
+      },
+    })
+    await prisma.feedPost.create({
+      data: {
+        title: 'Como fazer meu Life Group Crescer — Parte 2',
+        series: 'Liderança',
+        speaker: 'Equipe de Life Groups',
+        sortOrder: 0,
+      },
+    })
+    await prisma.lifeGroup.createMany({
+      data: [
+        {
+          name: 'Casas de Paz — Guanabara',
+          leaderName: 'Líder Luiz',
+          leaderPhone: '(91) 90000-0001',
+          address: 'Conjunto Guanabara',
+          neighborhood: 'Guanabara',
+          dayOfWeek: 'quarta',
+          meetingTime: '19:30',
+          ageGroup: 'adultos',
+          locationId: metro.id,
+        },
+        {
+          name: 'Jovens Paz — Coqueiro',
+          leaderName: 'Líder Ana',
+          leaderPhone: '(91) 90000-0002',
+          address: 'Rua do Coqueiro',
+          neighborhood: 'Coqueiro',
+          dayOfWeek: 'sexta',
+          meetingTime: '20:00',
+          ageGroup: 'jovens',
+          locationId: metro.id,
+        },
+        {
+          name: 'Paz Kids — Famílias',
+          leaderName: 'Líder Carla',
+          address: 'Parque Augusto Montenegro',
+          neighborhood: 'Parque Verde',
+          dayOfWeek: 'sábado',
+          meetingTime: '16:00',
+          ageGroup: 'criancas',
+          locationId: belem.id,
         },
       ],
     })
