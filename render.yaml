@@ -1,0 +1,36 @@
+# Paz Church Ananindeua — Render
+envVarGroups:
+  - name: paz-ananindeua-shared
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+services:
+  - type: web
+    name: paz-ananindeua-api
+    runtime: node
+    region: virginia
+    plan: free
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: sh -c "for i in 1 2 3; do npx prisma migrate deploy && break; sleep 20; done; npx tsx prisma/seed.ts && npm start"
+    healthCheckPath: /health
+    envVars:
+      - fromGroup: paz-ananindeua-shared
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_URL_UNPOOLED
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: NEON_REALTIME_SECRET
+        sync: false
+      - key: NEON_REALTIME_URL
+        sync: false
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: AWS_ENDPOINT_URL_S3
+        sync: false
+      - key: AWS_REGION
+        sync: false

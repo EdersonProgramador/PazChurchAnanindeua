@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --paz-navy: #1a2f4e;
+}
+
+body {
+  @apply font-sans text-paz-navy antialiased;
+  margin: 0;
+}
+
+.paz-screen-enter {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.paz-screen-enter.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
+}
+
+.paz-card {
+  @apply overflow-hidden rounded-lg bg-white shadow-sm;
+}
