@@ -1,8 +1,9 @@
-import { ChevronDown, Menu, X } from 'lucide-react'
+import { ChevronDown, Menu, Search, X } from 'lucide-react'
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { MAIN_NAV } from '../../data/navigation'
 import { CHURCH } from '../../data/churchContent'
+import { SiteSearch } from './SiteSearch'
 
 type Props = { minimal?: boolean }
 
@@ -40,11 +41,18 @@ export function SiteHeader({ minimal }: Props) {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex">
-          {MAIN_NAV.map((item) => (
-            <NavItemDesktop key={item.label} item={item} />
-          ))}
-        </nav>
+        <div className="hidden flex-1 items-center justify-end gap-4 lg:flex">
+          <SiteSearch />
+          <nav className="flex items-center gap-1">
+            {MAIN_NAV.map((item) => (
+              <NavItemDesktop key={item.label} item={item} />
+            ))}
+          </nav>
+        </div>
+
+        <Link to="/busca" className="rounded-lg p-2 text-paz-navy md:hidden" aria-label="Buscar">
+          <Search className="h-6 w-6" />
+        </Link>
 
         <button
           type="button"

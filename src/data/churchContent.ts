@@ -8,6 +8,10 @@ export const CHURCH = {
   cep: '67110-140',
   facebook: 'https://www.facebook.com/pages/Paz%20Church%20Ananindeua/2017134335074716/',
   site: 'https://paz.church/belem/events/local/paz-church-metropole-ananindeua/',
+  /** Centro aproximado — Paz Church Metrópole BR-316 */
+  mapLat: -1.3658,
+  mapLng: -48.3724,
+  mapsQuery: 'Paz Church Metrópole Ananindeua, Rodovia BR-316 KM 5, Guanabara, Ananindeua, PA',
   hours: [
     'Culto de Celebração — domingo 8h e 18h',
     'TADEL — domingo 10h (quando programado)',

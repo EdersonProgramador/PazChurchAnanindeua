@@ -124,6 +124,10 @@ export function HomePage() {
           <Link to="/paz-church/localizacao" className="text-sm font-semibold text-paz-accent hover:underline">
             Ver localização e mapa
           </Link>
+          {' · '}
+          <Link to="/galeria" className="text-sm font-semibold text-paz-accent hover:underline">
+            Galeria de fotos
+          </Link>
         </p>
       </SiteSection>
     </>

@@ -18,7 +18,8 @@ export const MAIN_NAV: NavItem[] = [
     children: [
       { label: 'Cultos', to: '/mensagens' },
       { label: 'Liderança', to: '/mensagens?cat=Liderança' },
-      { label: 'Pregações', to: '/mais/pregacoes' },
+      { label: 'Pregações', to: '/mensagens' },
+      { label: 'Galeria', to: '/galeria' },
     ],
   },
   { label: 'Agenda', to: '/agenda' },
@@ -49,6 +50,7 @@ export const FOOTER_COLUMNS = [
     links: [
       { label: 'Mensagens', to: '/mensagens' },
       { label: 'Agenda', to: '/agenda' },
+      { label: 'Galeria', to: '/galeria' },
       { label: 'Facebook', to: 'https://www.facebook.com/pages/Paz%20Church%20Ananindeua/2017134335074716/', external: true },
     ],
   },

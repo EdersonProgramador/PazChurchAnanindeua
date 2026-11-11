@@ -13,6 +13,9 @@ import { GestaoPage } from './pages/GestaoPage'
 import { VolunteerSignupPage } from './pages/VolunteerSignupPage'
 import { ContribuaPage } from './pages/ContribuaPage'
 import { ContatoPage } from './pages/ContatoPage'
+import { BuscaPage } from './pages/BuscaPage'
+import { GaleriaPage } from './pages/GaleriaPage'
+import { LocalizacaoPage } from './pages/LocalizacaoPage'
 
 export function AppRouter() {
   return (
@@ -20,7 +23,10 @@ export function AppRouter() {
       <Route element={<SiteLayout />}>
         <Route index element={<HomePage />} />
         <Route path="paz-church" element={<PazChurchPage />} />
+        <Route path="paz-church/localizacao" element={<LocalizacaoPage />} />
         <Route path="paz-church/:section" element={<StaticSectionPage base="paz-church" />} />
+        <Route path="busca" element={<BuscaPage />} />
+        <Route path="galeria" element={<GaleriaPage />} />
         <Route path="agenda" element={<SchedulePage />} />
         <Route path="programacao" element={<Navigate to="/agenda" replace />} />
         <Route path="mensagens" element={<MensagensPage />} />
