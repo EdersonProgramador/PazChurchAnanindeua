@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Calendar, ChevronRight, Mic2, Users } from 'lucide-react'
+import { HomeHeroVideo } from '../components/site/HomeHeroVideo'
 import { SiteSection } from '../components/site/SiteSection'
 import { CHURCH } from '../data/churchContent'
 import { api, type FeedPost, type HomeSummary } from '../integrations/apiClient'
@@ -16,29 +17,7 @@ export function HomePage() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-paz-navy text-white">
-        <img
-          src="/image-12a4bb2c-a74f-4587-aacb-ba96ca812599.jpg"
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover opacity-40"
-          onError={(e) => {
-            e.currentTarget.style.display = 'none'
-          }}
-        />
-        <div className="relative site-container flex min-h-[280px] flex-col justify-center py-16 md:min-h-[360px] md:py-24">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/80">{CHURCH.tagline}</p>
-          <h1 className="mt-2 max-w-2xl text-3xl font-bold leading-tight md:text-5xl">{CHURCH.name}</h1>
-          <p className="mt-4 max-w-xl text-sm text-white/85 md:text-base">{CHURCH.locale} — convidamos você e sua família.</p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link to="/agenda" className="rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-paz-navy">
-              Agenda completa
-            </Link>
-            <Link to="/life-groups/inscricao" className="rounded-lg border border-white/40 px-5 py-2.5 text-sm font-semibold text-white">
-              Life Groups
-            </Link>
-          </div>
-        </div>
-      </section>
+      <HomeHeroVideo />
 
       <SiteSection className="bg-white">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

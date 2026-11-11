@@ -29,16 +29,12 @@ export function SiteHeader({ minimal }: Props) {
     <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/95 shadow-sm backdrop-blur">
       <motionTopBar />
       <div className="site-container flex h-16 items-center justify-between gap-4 lg:h-20">
-        <Link to="/" className="flex items-center gap-3">
+        <Link to="/" className="flex items-center gap-3" aria-label={CHURCH.name}>
           <img
             src="/logo-pazchurchananindeua-9dc3104f-74c5-44ba-af12-06a3856a8947.png"
             alt={CHURCH.name}
-            className="h-10 w-auto lg:h-12"
+            className="h-12 w-auto sm:h-14 lg:h-16"
           />
-          <span className="hidden text-sm font-bold uppercase tracking-wide text-paz-navy sm:inline">
-            Paz Church Ananindeua
-            <span className="mt-0.5 block text-[10px] font-medium normal-case text-paz-muted">Metrópole · Região Belém/PA</span>
-          </span>
         </Link>
 
         <div className="hidden flex-1 items-center justify-end gap-4 lg:flex">
