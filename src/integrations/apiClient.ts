@@ -43,8 +43,23 @@ export const api = {
       body: JSON.stringify({ email, password }),
     }),
   health: () => request<{ ok: boolean; services: Record<string, boolean> }>('/health'),
-  adminList: (entity: 'roles' | 'permissions' | 'functions') =>
-    request<{ items: unknown[] }>(`/admin/${entity}`),
+  adminList: (entity: AdminEntity) => request<{ items: RbacItem[] }>(`/admin/${entity}`),
+  adminCreate: (entity: AdminEntity, body: Record<string, unknown>) =>
+    request<{ item: RbacItem }>(`/admin/${entity}`, { method: 'POST', body: JSON.stringify(body) }),
+  adminUpdate: (entity: AdminEntity, id: string, body: Record<string, unknown>) =>
+    request<{ item: RbacItem }>(`/admin/${entity}/${id}`, { method: 'PUT', body: JSON.stringify(body) }),
+  adminDelete: (entity: AdminEntity, id: string) =>
+    request<void>(`/admin/${entity}/${id}`, { method: 'DELETE' }),
+}
+
+export type AdminEntity = 'roles' | 'permissions' | 'functions'
+
+export type RbacItem = {
+  id: string
+  name: string
+  slug?: string
+  code?: string
+  description?: string | null
 }
 
 export type FeedPost = {

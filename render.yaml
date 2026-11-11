@@ -12,7 +12,7 @@ services:
     region: virginia
     plan: free
     buildCommand: npm ci --include=dev && npm run build
-    startCommand: sh -c "for i in 1 2 3; do npx prisma migrate deploy && break; sleep 20; done; npx tsx prisma/seed.ts && npm start"
+    startCommand: sh -c "for i in 1 2 3; do npx prisma migrate deploy && break; sleep 20; done; npx tsx prisma/seed.ts && node server/index.mjs"
     healthCheckPath: /health
     envVars:
       - fromGroup: paz-ananindeua-shared
@@ -21,7 +21,7 @@ services:
       - key: DATABASE_URL_UNPOOLED
         sync: false
       - key: JWT_SECRET
-        sync: false
+        generateValue: true
       - key: NEON_REALTIME_SECRET
         sync: false
       - key: NEON_REALTIME_URL
