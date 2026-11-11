@@ -30,12 +30,25 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-white/10">
         <div className="site-container flex flex-col items-center justify-between gap-4 py-6 sm:flex-row">
-          <p className="text-xs text-white/60">
-            © {new Date().getFullYear()} {CHURCH.name}. Inspirado em{' '}
-            <a href="https://paz.church/belem/" className="underline hover:text-white">
-              paz.church/belem
-            </a>
-          </p>
+          <div className="text-center text-xs text-white/60 sm:text-left">
+            <p>
+              © {new Date().getFullYear()} {CHURCH.name}. Inspirado em{' '}
+              <a href="https://paz.church/belem/" className="underline hover:text-white">
+                paz.church/belem
+              </a>
+            </p>
+            <p className="mt-1">
+              Construído por{' '}
+              <a
+                href="https://www.edersonprogramador.com.br/"
+                target="_blank"
+                rel="noreferrer"
+                className="underline hover:text-white"
+              >
+                Ederson programador
+              </a>
+            </p>
+          </div>
           <div className="flex gap-4">
             <a href={CHURCH.facebook} target="_blank" rel="noreferrer" aria-label="Facebook">
               <Facebook className="h-5 w-5 text-white/80 hover:text-white" />

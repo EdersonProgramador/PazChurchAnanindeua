@@ -28,12 +28,12 @@ export function SiteHeader({ minimal }: Props) {
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/95 shadow-sm backdrop-blur">
       <motionTopBar />
-      <div className="site-container flex h-16 items-center justify-between gap-4 lg:h-20">
-        <Link to="/" className="flex items-center gap-3" aria-label={CHURCH.name}>
+      <div className="site-container flex h-[4.25rem] items-center justify-between gap-4 lg:h-24">
+        <Link to="/" className="flex shrink-0 items-center gap-3" aria-label={CHURCH.name}>
           <img
             src="/logo-pazchurchananindeua-9dc3104f-74c5-44ba-af12-06a3856a8947.png"
             alt={CHURCH.name}
-            className="h-12 w-auto sm:h-14 lg:h-16"
+            className="h-14 w-auto sm:h-16 lg:h-20"
           />
         </Link>
 
